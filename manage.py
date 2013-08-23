@@ -8,19 +8,18 @@ from app import app
 
 manager = Manager(app)
 
-# Turn on debugger by default and reloader
-manager.add_command("runlocalserver", Server(
+class RunDevelopServer(Server):
     use_debugger=True,
     use_reloader=True,
-    port='50001')
-)
+    port='50001'
+
+    
+# Turn on debugger by default and reloader
+manager.add_command("runlocalserver", RunDevelopServer())
 
 # Turn on debugger by default and reloader
-manager.add_command("runserver", Server(
-    use_debugger=True,
-    use_reloader=True,
-    host='0.0.0.0',
-    port='50001')
+manager.add_command("runserver", RunDevelopServer( 
+    host='0.0.0.0')
 )
 
 if __name__ == "__main__":
